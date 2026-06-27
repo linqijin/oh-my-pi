@@ -342,7 +342,7 @@ export const CATALOG_PROVIDERS = [
 	{
 		id: "stepfun",
 		defaultModel: "step-3.7-flash",
-		envVars: ["STEPFUN_API_KEY", "STEP_PLAN_API_KEY"],
+		envVars: ["STEPFUN_API_KEY", "STEP_API_KEY", "STEP_PLAN_API_KEY"],
 		createModelManagerOptions: (config: ModelManagerConfig) => stepfunModelManagerOptions(config),
 		dynamicModelsAuthoritative: true,
 		catalogDiscovery: { label: "StepFun Step Plan" },

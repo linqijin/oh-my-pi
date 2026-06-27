@@ -12,6 +12,7 @@ import type { FetchImpl } from "@oh-my-pi/pi-catalog/types";
 
 const ORIGINAL_ENV = {
 	STEPFUN_API_KEY: Bun.env.STEPFUN_API_KEY,
+	STEP_API_KEY: Bun.env.STEP_API_KEY,
 	STEP_PLAN_API_KEY: Bun.env.STEP_PLAN_API_KEY,
 	STEPFUN_BASE_URL: Bun.env.STEPFUN_BASE_URL,
 	STEP_PLAN_BASE_URL: Bun.env.STEP_PLAN_BASE_URL,
@@ -28,6 +29,7 @@ function restoreEnvVar(name: keyof typeof ORIGINAL_ENV): void {
 
 afterEach(() => {
 	restoreEnvVar("STEPFUN_API_KEY");
+	restoreEnvVar("STEP_API_KEY");
 	restoreEnvVar("STEP_PLAN_API_KEY");
 	restoreEnvVar("STEPFUN_BASE_URL");
 	restoreEnvVar("STEP_PLAN_BASE_URL");
@@ -37,8 +39,12 @@ afterEach(() => {
 describe("StepFun Step Plan provider support", () => {
 	test("resolves StepFun API key environment fallbacks", () => {
 		delete Bun.env.STEPFUN_API_KEY;
+		delete Bun.env.STEP_API_KEY;
 		Bun.env.STEP_PLAN_API_KEY = "step-plan-test-key";
 		expect(getEnvApiKey("stepfun")).toBe("step-plan-test-key");
+
+		Bun.env.STEP_API_KEY = "step-test-key";
+		expect(getEnvApiKey("stepfun")).toBe("step-test-key");
 
 		Bun.env.STEPFUN_API_KEY = "stepfun-test-key";
 		expect(getEnvApiKey("stepfun")).toBe("stepfun-test-key");
@@ -48,7 +54,7 @@ describe("StepFun Step Plan provider support", () => {
 		const descriptor = PROVIDER_DESCRIPTORS.find(item => item.providerId === "stepfun");
 		expect(descriptor).toBeDefined();
 		expect(descriptor?.defaultModel).toBe("step-3.7-flash");
-		expect(descriptor?.catalogDiscovery?.envVars).toEqual(["STEPFUN_API_KEY", "STEP_PLAN_API_KEY"]);
+		expect(descriptor?.catalogDiscovery?.envVars).toEqual(["STEPFUN_API_KEY", "STEP_API_KEY", "STEP_PLAN_API_KEY"]);
 		expect(descriptor?.dynamicModelsAuthoritative).toBe(true);
 		expect(DEFAULT_MODEL_PER_PROVIDER.stepfun).toBe("step-3.7-flash");
 
@@ -57,12 +63,7 @@ describe("StepFun Step Plan provider support", () => {
 			"step-3.5-flash",
 			"step-3.5-flash-2603",
 			"step-3.7-flash",
-			"step-image-edit-2",
 			"step-router-v1",
-			"stepaudio-2.5-asr",
-			"stepaudio-2.5-chat",
-			"stepaudio-2.5-realtime",
-			"stepaudio-2.5-tts",
 		]);
 		for (const model of bundled) {
 			expect(model.api).toBe("openai-completions");
@@ -72,9 +73,6 @@ describe("StepFun Step Plan provider support", () => {
 				expect(model.thinking?.efforts).toEqual([Effort.Low, Effort.Medium, Effort.High]);
 			} else {
 				expect(model.reasoning).toBe(false);
-			}
-			if (model.id.startsWith("stepaudio-") || model.id === "step-image-edit-2") {
-				expect(model.supportsTools).toBe(false);
 			}
 		}
 
@@ -95,6 +93,7 @@ describe("StepFun Step Plan provider support", () => {
 		const options = stepfunModelManagerOptions({ apiKey: "step-key", fetch: fetchMock });
 		const models = await options.fetchDynamicModels?.();
 
+		expect(options.dynamicModelsAuthoritative).toBe(true);
 		expect(fetchMock).toHaveBeenCalledWith(
 			"https://gateway.stepfun.test/step_plan/v1/models",
 			expect.objectContaining({
