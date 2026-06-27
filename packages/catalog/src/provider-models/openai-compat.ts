@@ -1251,6 +1251,60 @@ export function zhipuCodingPlanModelManagerOptions(
 }
 
 // ---------------------------------------------------------------------------
+// StepFun Step Plan
+// ---------------------------------------------------------------------------
+
+export const STEPFUN_STEP_PLAN_BASE_URL = "https://api.stepfun.com/step_plan/v1";
+
+function stepfunModelSpec(
+	id: string,
+	name: string,
+	options: { reasoning?: boolean; supportsTools?: boolean } = {},
+): ModelSpec<"openai-completions"> {
+	const reasoning = options.reasoning === true;
+	return {
+		id,
+		name,
+		api: "openai-completions",
+		provider: "stepfun",
+		baseUrl: STEPFUN_STEP_PLAN_BASE_URL,
+		reasoning,
+		...(reasoning
+			? { thinking: { mode: "effort" as const, efforts: [Effort.Low, Effort.Medium, Effort.High] } }
+			: {}),
+		input: ["text"],
+		cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+		contextWindow: null,
+		maxTokens: null,
+		...(options.supportsTools === false ? { supportsTools: false } : {}),
+	};
+}
+
+export const STEPFUN_STEP_PLAN_STATIC_MODELS = [
+	stepfunModelSpec("step-3.7-flash", "Step 3.7 Flash", { reasoning: true }),
+	stepfunModelSpec("step-router-v1", "Step Router v1"),
+	stepfunModelSpec("stepaudio-2.5-chat", "StepAudio 2.5 Chat", { supportsTools: false }),
+	stepfunModelSpec("stepaudio-2.5-tts", "StepAudio 2.5 TTS", { supportsTools: false }),
+	stepfunModelSpec("stepaudio-2.5-asr", "StepAudio 2.5 ASR", { supportsTools: false }),
+	stepfunModelSpec("stepaudio-2.5-realtime", "StepAudio 2.5 Realtime", { supportsTools: false }),
+	stepfunModelSpec("step-image-edit-2", "Step Image Edit 2", { supportsTools: false }),
+	stepfunModelSpec("step-3.5-flash-2603", "Step 3.5 Flash 2603", { reasoning: true }),
+	stepfunModelSpec("step-3.5-flash", "Step 3.5 Flash", { reasoning: true }),
+] as const satisfies readonly ModelSpec<"openai-completions">[];
+export interface StepfunModelManagerConfig {
+	apiKey?: string;
+	baseUrl?: string;
+	fetch?: FetchImpl;
+}
+
+export function stepfunModelManagerOptions(
+	config?: StepfunModelManagerConfig,
+): ModelManagerOptions<"openai-completions"> {
+	const baseUrl =
+		config?.baseUrl ?? Bun.env.STEPFUN_BASE_URL ?? Bun.env.STEP_PLAN_BASE_URL ?? STEPFUN_STEP_PLAN_BASE_URL;
+	return createSimpleOpenAICompletionsOptions("stepfun", baseUrl, { ...config, baseUrl });
+}
+// ---------------------------------------------------------------------------
 // 7.5 Fireworks
 // ---------------------------------------------------------------------------
 

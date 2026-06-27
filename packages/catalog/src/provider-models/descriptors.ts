@@ -37,6 +37,7 @@ import {
 	qianfanModelManagerOptions,
 	qwenPortalModelManagerOptions,
 	sakanaModelManagerOptions,
+	stepfunModelManagerOptions,
 	syntheticModelManagerOptions,
 	togetherModelManagerOptions,
 	umansModelManagerOptions,
@@ -337,6 +338,14 @@ export const CATALOG_PROVIDERS = [
 		createModelManagerOptions: (config: ModelManagerConfig) => syntheticModelManagerOptions(config),
 		dynamicModelsAuthoritative: true,
 		catalogDiscovery: { label: "Synthetic" },
+	},
+	{
+		id: "stepfun",
+		defaultModel: "step-3.7-flash",
+		envVars: ["STEPFUN_API_KEY", "STEP_PLAN_API_KEY"],
+		createModelManagerOptions: (config: ModelManagerConfig) => stepfunModelManagerOptions(config),
+		dynamicModelsAuthoritative: true,
+		catalogDiscovery: { label: "StepFun Step Plan" },
 	},
 	{
 		id: "together",

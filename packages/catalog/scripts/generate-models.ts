@@ -39,6 +39,7 @@ import {
 	MODELS_DEV_PROVIDER_DESCRIPTORS,
 	mapModelsDevToModels,
 	SAKANA_FUGU_STATIC_MODELS,
+	STEPFUN_STEP_PLAN_STATIC_MODELS,
 	stripFireworksDeepSeekThinkingToggle,
 } from "../src/provider-models/openai-compat";
 import type { ModelSpec } from "../src/types";
@@ -511,6 +512,11 @@ async function generateModels() {
 	// guard therefore always passes for this id, kept only to mirror the Sakana seed shape.
 	if (!authoritativeCatalogProviders.has("gitlab-duo-agent")) {
 		allModels.push(buildGitLabDuoWorkflowFallbackModel());
+	}
+	// Seed StepFun Step Plan models for installs without a live StepFun API key.
+	// Live `/v1/models` discovery stays authoritative when credentials are present.
+	if (!authoritativeCatalogProviders.has("stepfun")) {
+		allModels.push(...STEPFUN_STEP_PLAN_STATIC_MODELS);
 	}
 	// Seed Fireworks "Fast" serving-path variants (`<id>-fast`). Fast routers are
 	// not enumerated by the serverless control-plane list, so discovery never

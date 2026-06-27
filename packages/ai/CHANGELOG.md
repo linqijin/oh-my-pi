@@ -93,6 +93,10 @@
 
 - Restored the `pollOAuthDeviceCodeFlow` export from `@oh-my-pi/pi-ai/oauth` so legacy provider extensions can reuse the host OAuth device-code poller. ([#3508](https://github.com/can1357/oh-my-pi/issues/3508))
 
+### Added
+
+- Added `/login stepfun` API-key login support for StepFun Step Plan.
+
 ## [16.1.20] - 2026-06-25
 
 ### Fixed

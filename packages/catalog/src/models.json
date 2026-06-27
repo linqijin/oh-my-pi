@@ -71111,6 +71111,208 @@
 			}
 		}
 	},
+	"stepfun": {
+		"step-3.5-flash": {
+			"id": "step-3.5-flash",
+			"name": "Step 3.5 Flash",
+			"api": "openai-completions",
+			"provider": "stepfun",
+			"baseUrl": "https://api.stepfun.com/step_plan/v1",
+			"reasoning": true,
+			"thinking": {
+				"mode": "effort",
+				"efforts": [
+					"low",
+					"medium",
+					"high"
+				]
+			},
+			"input": [
+				"text"
+			],
+			"cost": {
+				"input": 0,
+				"output": 0,
+				"cacheRead": 0,
+				"cacheWrite": 0
+			},
+			"contextWindow": 262144,
+			"maxTokens": 256000
+		},
+		"step-3.5-flash-2603": {
+			"id": "step-3.5-flash-2603",
+			"name": "Step 3.5 Flash 2603",
+			"api": "openai-completions",
+			"provider": "stepfun",
+			"baseUrl": "https://api.stepfun.com/step_plan/v1",
+			"reasoning": true,
+			"thinking": {
+				"mode": "effort",
+				"efforts": [
+					"low",
+					"medium",
+					"high"
+				]
+			},
+			"input": [
+				"text"
+			],
+			"cost": {
+				"input": 0,
+				"output": 0,
+				"cacheRead": 0,
+				"cacheWrite": 0
+			},
+			"contextWindow": null,
+			"maxTokens": null
+		},
+		"step-3.7-flash": {
+			"id": "step-3.7-flash",
+			"name": "Step 3.7 Flash",
+			"api": "openai-completions",
+			"provider": "stepfun",
+			"baseUrl": "https://api.stepfun.com/step_plan/v1",
+			"reasoning": true,
+			"thinking": {
+				"mode": "effort",
+				"efforts": [
+					"low",
+					"medium",
+					"high"
+				]
+			},
+			"input": [
+				"text"
+			],
+			"cost": {
+				"input": 0,
+				"output": 0,
+				"cacheRead": 0,
+				"cacheWrite": 0
+			},
+			"contextWindow": 262144,
+			"maxTokens": 256000
+		},
+		"step-image-edit-2": {
+			"id": "step-image-edit-2",
+			"name": "Step Image Edit 2",
+			"api": "openai-completions",
+			"provider": "stepfun",
+			"baseUrl": "https://api.stepfun.com/step_plan/v1",
+			"reasoning": false,
+			"input": [
+				"text"
+			],
+			"cost": {
+				"input": 0,
+				"output": 0,
+				"cacheRead": 0,
+				"cacheWrite": 0
+			},
+			"contextWindow": null,
+			"maxTokens": null,
+			"supportsTools": false
+		},
+		"step-router-v1": {
+			"id": "step-router-v1",
+			"name": "Step Router v1",
+			"api": "openai-completions",
+			"provider": "stepfun",
+			"baseUrl": "https://api.stepfun.com/step_plan/v1",
+			"reasoning": false,
+			"input": [
+				"text"
+			],
+			"cost": {
+				"input": 0,
+				"output": 0,
+				"cacheRead": 0,
+				"cacheWrite": 0
+			},
+			"contextWindow": null,
+			"maxTokens": null
+		},
+		"stepaudio-2.5-asr": {
+			"id": "stepaudio-2.5-asr",
+			"name": "StepAudio 2.5 ASR",
+			"api": "openai-completions",
+			"provider": "stepfun",
+			"baseUrl": "https://api.stepfun.com/step_plan/v1",
+			"reasoning": false,
+			"input": [
+				"text"
+			],
+			"cost": {
+				"input": 0,
+				"output": 0,
+				"cacheRead": 0,
+				"cacheWrite": 0
+			},
+			"contextWindow": null,
+			"maxTokens": null,
+			"supportsTools": false
+		},
+		"stepaudio-2.5-chat": {
+			"id": "stepaudio-2.5-chat",
+			"name": "StepAudio 2.5 Chat",
+			"api": "openai-completions",
+			"provider": "stepfun",
+			"baseUrl": "https://api.stepfun.com/step_plan/v1",
+			"reasoning": false,
+			"input": [
+				"text"
+			],
+			"cost": {
+				"input": 0,
+				"output": 0,
+				"cacheRead": 0,
+				"cacheWrite": 0
+			},
+			"contextWindow": null,
+			"maxTokens": null,
+			"supportsTools": false
+		},
+		"stepaudio-2.5-realtime": {
+			"id": "stepaudio-2.5-realtime",
+			"name": "StepAudio 2.5 Realtime",
+			"api": "openai-completions",
+			"provider": "stepfun",
+			"baseUrl": "https://api.stepfun.com/step_plan/v1",
+			"reasoning": false,
+			"input": [
+				"text"
+			],
+			"cost": {
+				"input": 0,
+				"output": 0,
+				"cacheRead": 0,
+				"cacheWrite": 0
+			},
+			"contextWindow": null,
+			"maxTokens": null,
+			"supportsTools": false
+		},
+		"stepaudio-2.5-tts": {
+			"id": "stepaudio-2.5-tts",
+			"name": "StepAudio 2.5 TTS",
+			"api": "openai-completions",
+			"provider": "stepfun",
+			"baseUrl": "https://api.stepfun.com/step_plan/v1",
+			"reasoning": false,
+			"input": [
+				"text"
+			],
+			"cost": {
+				"input": 0,
+				"output": 0,
+				"cacheRead": 0,
+				"cacheWrite": 0
+			},
+			"contextWindow": null,
+			"maxTokens": null,
+			"supportsTools": false
+		}
+	},
 	"synthetic": {
 		"hf:MiniMaxAI/MiniMax-M3": {
 			"id": "hf:MiniMaxAI/MiniMax-M3",

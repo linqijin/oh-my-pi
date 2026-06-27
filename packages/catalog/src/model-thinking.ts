@@ -313,6 +313,9 @@ function getModelDefinedEfforts<TApi extends Api>(
 	if (isSakanaFuguReasoningModel(spec)) {
 		return FUGU_REASONING_EFFORTS;
 	}
+	if (isStepfunReasoningEffortModel(spec)) {
+		return LOW_MEDIUM_HIGH_REASONING_EFFORTS;
+	}
 	return isOpenAICompatReasoningApi(spec.api) &&
 		(isMinimaxM2FamilyModelId(spec.id) ||
 			isOpenAIGptOssModelId(spec.id) ||
@@ -333,6 +336,13 @@ function isMinimaxReasoningModelOnAnthropicEndpoint<TApi extends Api>(spec: Mode
 	return spec.api === "anthropic-messages" && (isMinimaxM2FamilyModelId(spec.id) || isMinimaxM3FamilyModelId(spec.id));
 }
 
+function isStepfunReasoningEffortModel<TApi extends Api>(spec: ModelSpec<TApi>): boolean {
+	return (
+		spec.provider === "stepfun" &&
+		spec.api === "openai-completions" &&
+		(spec.id === "step-3.7-flash" || spec.id === "step-3.5-flash-2603" || spec.id === "step-3.5-flash")
+	);
+}
 function isOpenAICompatMimoReasoningEffortModel<TApi extends Api>(
 	spec: ModelSpec<TApi>,
 	compat: CompatOf<TApi>,
